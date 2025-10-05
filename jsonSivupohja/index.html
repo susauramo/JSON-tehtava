@@ -33,45 +33,47 @@
   </div>
 </nav>
 
+<h1>JSON-harjoitustehtävän tekoa</h1>
+<div id="vastaus"></div>
+
+
 <!--Haetaan tieto JSON tietueesta-->
-<script
-fetch ('tietue.JSON')
+<script>
+fetch('https://github.com/susauramo/JSON-tehtava//tietue.JSON')
+
+//Vastaus olio muotoon ja seuraavassa käsitellään sitä
 .then(function (response) {
     return response.json();
 })
 .then(function (responseJson) {
-    kerro(responseJson() {
-    
+    document.getElementById("vastaus").innerHTML = kerro(responseJson);
     })
-
+//Vikailmoituksen esittäminen
   .catch(function (error) {
     document.getElementById("vastaus").innerHTML = "<p>Tietoa ei pystytä hakemaan.</p>";
-  })
+  });
 
-
-<!-- Tehdään kerro funktio-->
+// Tehdään kerro funktio
 function kerro(obj) {
+    let tiedot = "<h1>" + obj.otsikko + "</h1><br>"+ obj.kuvaus + "<br><hr>";
 
+        //Lisätään kuva
+         tiedot+="<p><img src=' " + obj.kuva + "></p>";
+        //Opintojakson tiedot näkyviin
+        tiedot += "<h3>" + "Opintojakso" + "</h3>" 
+        + "Nimi: " + obj.opintojakso.nimi + "<br>"
+  	    + "Tunnus: " + obj.opintojakso.tunnus + "<br>"
+	      + "Opintopisteet: " + obj.opintojakso.opintopisteet + "<br>";
+
+    tiedot += "<p><h3> Aiheet </h3>";
+
+    return tiedot;
 }
-
-
-<!-- -->
-let tiedot = "<h1>" + obj.otsikko + "</h1><br>"+ obj.kuvaus + "<br><hr>”
-
-<!--Lisätään kuva--> 
-"<p><img src=" + obj.kuva + "></p>”
-
-		+ "<h3>" + "Opintojakso" + "</h3>" + "Nimi: " + obj.opintojakso.nimi + "<br>"
-       	+ "Tunnus: " + obj.opintojakso.tunnus + "<br>"
-       	+ "Opintopisteet: " + obj.opintojakso.opintopisteet + "<br>”
-
-tiedot += "<p><h3> Aiheet </h3>";
-
 
 for (let i=0; i < obj.aiheet.length; i++) {
     tiedot += obj.aiheet[i] + "<br>";
 }
 
-
+</script>
 </body>
 </html>
