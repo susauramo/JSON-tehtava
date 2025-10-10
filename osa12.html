@@ -32,5 +32,52 @@
       </ul>
   </div>
 </nav>
+
+<h1>Pokemon haku</h1>
+<p>
+  <input type="text" id="pokemonName" placeholder="Enter Pokemon name">
+      <button onclick="poke()">Hae</button><br>
+    <div id="nimi">Kirjoita laatikkoon Pokemonin nimi</div>
+  <p id="kuva2"></p>
+</p>
+<script>
+function poke() {
+    let url = `https://pokeapi.co/api/v2/pokemon/${name}`;
+
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            return response.json();
+        })
+        .then(data => {
+            document.getElementById("nimi").innerHTML = `Nimi: ${data.name} <br> Korkeus: ${data.height} <br> Paino: ${data.weight}`;
+            document.getElementById("kuva2").innerHTML = `<img src="${data.sprites.front_default}" alt="${data.name}">`;
+        })
+        .catch(error => {
+            document.getElementById("nimi").innerHTML = "Pokemonia ei löydy. Yritä uudelleen.";
+            document.getElementById("kuva2").innerHTML = "";
+            console.error("There has been a problem with your fetch operation:", error);
+        });
+}
+    const pokeName = document.getElementById("pokemonName").value.toLowerCase();
+    let name = document.getElementById("pokemonName").value;
+    
+    fetch(`https://pokeapi.co/api/v2/pokemon/${pokeName}`)
+
+ .then(function (response) {
+  return response.json();
+ })
+.then(function (responseJson) {
+ pokekuva(responseJson);
+})
+
+.catch(function (error) {
+document.getElementById("vastaus").innerHTML = "<p>Tietoa ei pystytä hakemaan</p>";
+})
+
+</script>
+
 </body>
 </html>
